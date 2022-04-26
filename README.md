@@ -43,6 +43,10 @@ Username: vagrant
 Password: vagrant
 ```
 
+The default password complexity policy doesn't allow the password 'vagrant' so it is disabled.
+
+> WARNING: Obviously this is a bad idea, but this is a test environment.
+
 ## VirtualBox
 
 1. Download and install VirtualBox: https://www.virtualbox.org/wiki/Downloads
@@ -133,3 +137,8 @@ vagrant destroy
 ### Blog Post
 
 Accompanying [blog post](https://macrosec.tech/index.php/2022/04/26/the-auror-project-challenge-1/) of the lab setup.
+
+### References
+https://github.com/chr0n1k/Auror-Project
+https://github.com/eaksel?tab=repositories
+https://github.com/jaredmmartin/Active-Directory-Lab
