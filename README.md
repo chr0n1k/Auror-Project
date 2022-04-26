@@ -1,4 +1,4 @@
-# [Challenge 1](https://docs.google.com/document/d/1Zk_O_JpFQk5JQRGF9CAC0plml3ua3hCQ5VBDLxE2GQI/edit#) - Setup the lab automatically
+# [Challenge 1](https://docs.google.com/document/d/1Zk_O_JpFQk5JQRGF9CAC0plml3ua3hCQ5VBDLxE2GQI/edit#) - Setup the lab automatically - https://macrosec.tech/index.php/2022/04/26/the-auror-project-challenge-1/
 
 Let’s create two machines, Machine A and Machine B.
 - Machine A is the domain controller
