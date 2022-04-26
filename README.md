@@ -132,5 +132,4 @@ vagrant destroy
 
 ### Blog Post
 
-Accompanying [blog post]((https://macrosec.tech/index.php/2022/04/26/the-auror-project-challenge-1/
-)) of the lab setup.
+Accompanying [blog post](https://macrosec.tech/index.php/2022/04/26/the-auror-project-challenge-1/) of the lab setup.
