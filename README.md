@@ -117,7 +117,7 @@ This will create a VM, install Windows 10, and then package the VM as a Vagrant 
     vagrant up
     ```
 
-Building of the lab will take ~45 minutes, though your mileage may vary, because VirtualBox needs to import the base boxes and prepare them to deploy with the specific scripts supplied. As per the challenge there were objectives set for each of the two machines being deployed.
+Building of the lab will take ~45 minutes, your mileage may vary, because VirtualBox needs to import the base boxes and prepare them to deploy with the specific scripts supplied. As per the challenge there were objectives set for each of the two machines being deployed.
 
 
 ### Other Vagrant commands
