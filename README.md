@@ -140,5 +140,7 @@ Accompanying [blog post](https://macrosec.tech/index.php/2022/04/26/the-auror-pr
 
 ### References
 https://github.com/chr0n1k/Auror-Project
+
 https://github.com/eaksel?tab=repositories
+
 https://github.com/jaredmmartin/Active-Directory-Lab
