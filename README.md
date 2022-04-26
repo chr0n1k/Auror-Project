@@ -58,8 +58,6 @@ Password: vagrant
 
 ### Build the base Windows Server 2019 image from an already downloaded ISO
 
-This comes in handy if you have already downloaded the ISO previously.
-
 1. Start Powershell as Administrator
 2. Switch directory to the *server-2019* directory within the *Packer* directory
 3. Copy the ISO files to the *Packer* directory
@@ -71,12 +69,10 @@ This comes in handy if you have already downloaded the ISO previously.
     packer build ./server-2019.json
     ```
 
-The base image build can take a couple of minutes based on your host computer specifications. First, it will  create a VM, install Server 2019, and then package the VM as a Vagrant box. The Windows Server 2019 box will be cached on the host computer so subsequent runs of the image build process will run much faster. This should create a file *server-2019-fast.box* in the *Packer/Vagrant* folder.
+The base image build can take a couple of minutes based on your host computer specifications. First, it will create a VM, install Server 2019, and then package the VM as a Vagrant box. The Windows Server 2019 box will be cached on the host computer so subsequent runs of the image build process will run much faster. This should create a file *server-2019.box* in the *Packer/Vagrant* folder.
 
 
 ### Build the base Windows 10 image from an already downloaded ISO
-
-This comes in handy if you have already downloaded the ISO previously. You can get the [Windows 10 ISO](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise) here.
 
 1. Start Powershell as Administrator
 2. Switch directory to the *win10* directory within the *Packer* folder
@@ -86,10 +82,10 @@ This comes in handy if you have already downloaded the ISO previously. You can g
 6. Run the base image build:
 
     ```
-    packer build ./server-2019-localcopy.json
+    packer build ./win10.json
     ```
 
-The base image build can take a couple of minutes based on your host computer specifications. First, it will  create a VM, install Windows 10, and then package the VM as a Vagrant box. The Windows 10 box will be cached on the host computer so subsequent runs of the image build process will run much faster. This should create a file *win10-fast.box* in the *Packer/Vagrant* folder.
+This will create a VM, install Windows 10, and then package the VM as a Vagrant box. The Windows 10 box will be cached on the host computer so subsequent runs of the image build process will run much faster. This should create a file *win10.box* in the *Packer/Vagrant* folder.
 
 
 ## Vagrant
@@ -110,17 +106,18 @@ The base image build can take a couple of minutes based on your host computer sp
 ### Build the lab
 
 
-Once the boxes are provisioned copy them from the *Packer/Vagrant/* folder into the *Vagrant* folder
 
-1. Open Powershell as an Administrator
-2. Switch directory to the *Vagrant* directory
-3. Build the lab:
+
+1. Copy the packer provisioned *.box* files from the *Packer/Vagrant/* folder into the *Vagrant* folder
+2. Open Powershell as an Administrator
+3. Switch directory to the *Vagrant* directory
+4. Build the lab:
 
     ```
     vagrant up
     ```
 
-Building of the lab will take ~45 minutes, though your mileage may vary, because VirtualBox needs to import the base boxes and prepare a them to deploy with the specific scripts supplied. As per the challenge there were objectives set for each of the two machines being deployed.
+Building of the lab will take ~45 minutes, though your mileage may vary, because VirtualBox needs to import the base boxes and prepare them to deploy with the specific scripts supplied. As per the challenge there were objectives set for each of the two machines being deployed.
 
 
 ### Other Vagrant commands
