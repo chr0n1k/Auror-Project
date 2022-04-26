@@ -142,3 +142,5 @@ Accompanying [blog post](https://macrosec.tech/index.php/2022/04/26/the-auror-pr
 https://github.com/eaksel?tab=repositories
 
 https://github.com/jaredmmartin/Active-Directory-Lab
+
+https://detectionlab.network/introduction/packerandvagrant/
