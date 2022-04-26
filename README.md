@@ -139,8 +139,6 @@ vagrant destroy
 Accompanying [blog post](https://macrosec.tech/index.php/2022/04/26/the-auror-project-challenge-1/) of the lab setup.
 
 ### References
-https://github.com/chr0n1k/Auror-Project
-
 https://github.com/eaksel?tab=repositories
 
 https://github.com/jaredmmartin/Active-Directory-Lab
