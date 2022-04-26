@@ -1,0 +1,52 @@
+{
+    "variables": {
+      "boot_wait": "5m",
+      "disk_size": "40960",
+      "iso_checksum": "sha256:32C7B0A51A48CC4F67C250BE4FE2B384FEBB9CC864C5B77A052D4E2845394EAC",
+      "iso_url": "19042.631.201119-0144.20h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+      "memsize": "2048",
+      "numvcpus": "2",
+      "vm_name": "Win10",
+	  "winrm_password" : "vagrant",
+	  "winrm_username" : "vagrant"
+    },
+	"builders": [
+		{
+            "type": "virtualbox-iso",
+            "guest_os_type": "Windows10_64",
+            "vm_name": "{{user `vm_name`}}",
+            "iso_url": "{{user `iso_url`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+            "guest_additions_mode": "disable",
+            "headless": false,
+            "boot_wait": "{{user `boot_wait`}}",
+            "disk_size": "{{user `disk_size`}}",
+            "communicator":"winrm",
+			"winrm_username": "{{user `winrm_username`}}",
+            "winrm_password": "{{user `winrm_password`}}",
+            "winrm_timeout": "4h",
+			"shutdown_command": "a:/sysprep.bat",
+            "floppy_files": [
+				"scripts/win10/autounattend.xml",
+				"scripts/win10/unattend.xml",
+				"scripts/fixnetwork.ps1",
+				"scripts/sysprep.bat",
+				"scripts/disable-winrm.ps1",
+				"scripts/enable-winrm.ps1",
+				"scripts/winrmConfig.bat"
+			],
+            "vboxmanage": [
+              ["modifyvm", "{{.Name}}", "--memory", "{{user `memsize`}}"],
+              ["modifyvm", "{{.Name}}", "--cpus", "{{user `numvcpus`}}"]
+            ]
+        }
+	],
+	"post-processors": [
+		{
+			"type": "vagrant",
+			"keep_input_artifact": false,
+			"output": "../Vagrant/win10.box",
+			"vagrantfile_template": "win10-vagrantfile.template"
+		}
+	]
+}

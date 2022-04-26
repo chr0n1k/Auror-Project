@@ -1,0 +1,99 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Build a Domain Controller
+  config.vm.define "dc01" do |dc01|
+  
+    # Source box and VM config
+    dc01.vm.box = "server-2019.box"
+    dc01.vm.guest = "windows"
+    dc01.vm.hostname = "DC01"
+
+    # Network config
+    dc01.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+    dc01.vm.network :private_network, ip: "10.1.1.50", gateway: "10.1.1.0"
+
+    # WinRM config
+    dc01.vm.communicator = "winrm"
+    dc01.winrm.transport = :plaintext
+    dc01.winrm.basic_auth_only = true
+    dc01.winrm.username = "vagrant"
+    dc01.winrm.password = "vagrant"
+
+    # VirtualBox config
+    dc01.vm.provider :virtualbox do |v|
+      v.gui = true
+      v.name = "DC01"
+      v.linked_clone = true
+      v.cpus = 1
+      v.memory = 2048
+	  v.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+    end
+
+	# Set time zone to East Africa
+    dc01.vm.provision "shell", path: "./files/set-timezone.ps1"
+    dc01.vm.provision "shell", reboot: true
+	
+    # Install Active Directory
+    dc01.vm.provision "shell", path: "./files/install-active-directory.ps1"
+    dc01.vm.provision "shell", reboot: true
+
+    # Add user Adam to the domain auror.local
+    dc01.vm.provision "shell", path: "./files/add-adam.ps1"
+    dc01.vm.provision "shell", reboot: true
+  
+  end
+
+  # Build a Domain Workstation
+  config.vm.define "pc01" do |pc01|
+
+    # Source box and VM config
+    pc01.vm.box = "win10.box"
+    pc01.vm.guest = "windows"
+    pc01.vm.hostname = "PC01"
+	#pc01.vm.boot_timeout = "1200"
+
+    # Network config
+    pc01.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+	pc01.vm.network :private_network, ip: "10.1.1.15", gateway: "10.1.1.0"
+
+    # WinRM config
+    pc01.vm.communicator = "winrm"
+    pc01.winrm.transport = :plaintext
+    pc01.winrm.basic_auth_only = true
+    pc01.winrm.username = "vagrant"
+    pc01.winrm.password = "vagrant"
+
+    # VirtualBox config
+    pc01.vm.provider :virtualbox do |v, override|
+      v.gui = true
+      v.name = "PC01"
+      v.linked_clone = true
+      v.cpus = 1
+      v.memory = 2048
+	  v.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+      v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+    end
+	
+	# Install Chrome
+	pc01.vm.provision "shell", path: "./files/install-chrome.ps1"
+    pc01.vm.provision "shell", reboot: true
+
+    # Join Active Directory
+    pc01.vm.provision "shell", path: "./files/join-domain.ps1"
+    pc01.vm.provision "shell", reboot: true
+	
+	# Add auror\Adam to local administrator group of PC01
+	pc01.vm.provision "shell", path: "./files/add-localadmin.ps1"
+#	pc01.vm.provision "shell", path: "./files/defender-update.ps1"
+    pc01.vm.provision "shell", reboot: true
+	
+  end
+end
